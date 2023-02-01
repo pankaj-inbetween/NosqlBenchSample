@@ -38,3 +38,25 @@ java -jar nb.jar start driver=stdout workload=nosqlb-lvl-3.yaml tags=phase:main 
 4)
 with binding options
 java -jar nb.jar start driver=stdout workload=bindings.yaml  cycles=10
+
+example with CQL driver -
+note - cassandra is running on localhost/127.0.0.1 with default port.
+5)
+with schema creation:
+java -jar nb.jar start driver=cql workload=nosqlb-lvl-2.yaml tags=phase:schema hosts=127.0.0.1 localdc=datacenter1
+
+6)
+with ramp up phase:
+java -jar nb.jar start driver=cql workload=nosqlb-lvl-2.yaml tags=phase:rampup hosts=127.0.0.1 localdc=datacenter1
+
+7)
+with ramp up phase cycle 100:
+java -jar nb.jar start driver=cql workload=nosqlb-lvl-2.yaml tags=phase:rampup hosts=127.0.0.1 localdc=datacenter1 cycles=100
+
+8)
+with main phase cycle 10:
+java -jar nb.jar start driver=cql workload=nosqlb-lvl-3.yaml tags=phase:main hosts=127.0.0.1 localdc=datacenter1 cycles=10
+
+9)
+For testing at scale, it is highly recommended that you set threads to a value higher than the default of 1. hint: you can use threads=auto for reasonable default, or consult the topic on threads with `help threads` for more information.
+java -jar nb.jar start driver=cql workload=nosqlb-lvl-3.yaml tags=phase:main hosts=127.0.0.1 localdc=datacenter1 cycles=1M threads=auto
